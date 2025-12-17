@@ -1,0 +1,16 @@
+{
+  "name": "vps-auto-store",
+  "version": "2.0.0",
+  "description": "Bot Auto Buy VPS DigitalOcean x Duitku",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "author": "AppoloTheGreat",
+  "license": "MIT",
+  "dependencies": {
+    "axios": "^1.7.7",
+    "node-telegram-bot-api": "^0.66.0",
+    "qrcode": "^1.5.3"
+  }
+}
