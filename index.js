@@ -7,8 +7,8 @@ const os = require('os');
 const fs = require('fs');
 const config = require('./config.js');
 
-///===========ANTI-CRASH GLOBAL (Boleh di sini)=======\\\\\
-// Menangani error codingan umum agar tidak mati
+///===========ANTI-CRASH GLOBAL (Wajib Paling Atas)=======\\\\\
+// Menangani error codingan umum agar bot tidak mati mendadak
 process.on('uncaughtException', (err) => {
     console.error('❌ Uncaught Exception:', err);
 });
@@ -17,19 +17,24 @@ process.on('unhandledRejection', (reason, promise) => {
     console.error('❌ Unhandled Rejection:', reason);
 });
 
-// Inisialisasi Bot (INI HARUS ADA DULUAN)
+///===========INISIALISASI BOT (Wajib Di Sini)=======\\\\\
+// Buat bot dulu, baru bisa dipanggil
 const bot = new TelegramBot(config.token, { polling: true });
 
-///===========ANTI-CRASH KHUSUS BOT (Wajib DI BAWAH Inisialisasi)=======\\\\\
-// Menangani error koneksi/polling
+///===========ANTI-CRASH KHUSUS BOT (Setelah Bot Dibuat)=======\\\\\
+// Menangani error koneksi internet/polling
 bot.on('polling_error', (error) => {
-    console.log('⚠️ Polling Error:', error.message);
+    console.log('⚠️ Polling Error (Tenang, bot tidak mati):', error.message);
 });
 
 ///===========DATABASE DINAMIS (FILE JSON)=======\\\\\
-// ... Lanjutkan kode kamu di bawah sini seperti biasa ...
+// Definisi file database harus sebelum dipanggil
+const dbFile = './database.json';
+let dynamicDb = {
+    apiDigitalOcean: config.apiDigitalOcean
+};
 
-// Cek apakah file database.json ada, kalau ada load, kalau tidak buat baru
+// Cek apakah file database.json ada
 if (fs.existsSync(dbFile)) {
     try {
         const loadDb = JSON.parse(fs.readFileSync(dbFile));
@@ -61,6 +66,8 @@ function getRuntime() {
 function formatRupiah(angka) {
     return "Rp " + angka.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
 }
+
+// ... LANJUTKAN KODE KAMU DARI SINI (BAGIAN START COMMAND KE BAWAH) ...
 
 ///===========START COMMAND=======\\\\\
 bot.onText(/\/start/, async (msg) => {
