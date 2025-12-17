@@ -470,7 +470,7 @@ async function processPaymentPakasir(chatId, userId, userProfile, product) {
     await bot.deleteMessage(chatId, loading.message_id).catch(()=>{});
 
     const msgQr = await bot.sendPhoto(chatId, buffer, {
-        caption: `🧾 <b>INVOICE PEMBAYARAN (PAKASIR)</b>
+        caption: `🧾 <b>INVOICE PEMBAYARAN</b>
 
 📦 <b>Item:</b> ${product.name}
 💰 <b>Total:</b> ${formatRupiah(totalBayar)}
