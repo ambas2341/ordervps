@@ -272,7 +272,7 @@ bot.on("callback_query", async (callbackQuery) => {
             const choice = data.split("_")[1];
             // Daftar Harga & Spek
             const vpsOptions = {
-                1: { name: "1 vCPU / 2GB RAM", slug: "s-1vcpu-2gb", price: 1000 },
+                1: { name: "1 vCPU / 2GB RAM", slug: "s-1vcpu-2gb", price: 20000 },
                 2: { name: "2 vCPU / 2GB RAM", slug: "s-2vcpu-2gb", price: 25000 },
                 3: { name: "2 vCPU / 4GB RAM", slug: "s-2vcpu-4gb", price: 30000 },
                 4: { name: "4 vCPU / 8GB RAM", slug: "s-4vcpu-8gb", price: 40000 },
@@ -322,7 +322,7 @@ bot.on("callback_query", async (callbackQuery) => {
 async function sendVpsMenu(chatId) {
     const vpsOptions = [
         [
-            { text: "💻 1 vCPU 2GB - Rp 1.000", callback_data: "buyvps_1" },
+            { text: "💻 1 vCPU 2GB - Rp 20.000", callback_data: "buyvps_1" },
         ],
         [
             { text: "💻 2 vCPU 2GB - Rp 25.000", callback_data: "buyvps_2" },
