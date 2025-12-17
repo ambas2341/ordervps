@@ -1,37 +1,33 @@
-///===========ANTI-CRASH HANDLER (WAJIB ADA)=======\\\\\
-// 1. Menangkap error polling (koneksi putus nyambung)
-bot.on('polling_error', (error) => {
-    console.log('⚠️ Polling Error:', error.message);
-});
-
-// 2. Menangkap error "Bad Request" atau error coding lainnya agar bot GAK MATI
-process.on('uncaughtException', (err) => {
-    console.error('❌ Uncaught Exception:', err);
-    // Bot tetap jalan, hanya lapor error di console
-});
-
-process.on('unhandledRejection', (reason, promise) => {
-    console.error('❌ Unhandled Rejection:', reason);
-    // Bot tetap jalan
-});
 ///===========CONST & DEPENDENCIES=======\\\\\
 const TelegramBot = require('node-telegram-bot-api');
 const axios = require('axios');
 const crypto = require('crypto');
 const QRCode = require('qrcode');
 const os = require('os');
-const fs = require('fs'); // TAMBAHAN: Module File System
+const fs = require('fs');
 const config = require('./config.js');
 
-// Inisialisasi Bot
+///===========ANTI-CRASH GLOBAL (Boleh di sini)=======\\\\\
+// Menangani error codingan umum agar tidak mati
+process.on('uncaughtException', (err) => {
+    console.error('❌ Uncaught Exception:', err);
+});
+
+process.on('unhandledRejection', (reason, promise) => {
+    console.error('❌ Unhandled Rejection:', reason);
+});
+
+// Inisialisasi Bot (INI HARUS ADA DULUAN)
 const bot = new TelegramBot(config.token, { polling: true });
 
+///===========ANTI-CRASH KHUSUS BOT (Wajib DI BAWAH Inisialisasi)=======\\\\\
+// Menangani error koneksi/polling
+bot.on('polling_error', (error) => {
+    console.log('⚠️ Polling Error:', error.message);
+});
+
 ///===========DATABASE DINAMIS (FILE JSON)=======\\\\\
-// Ini untuk menyimpan API Key agar kalau bot restart, key barunya tetep kesimpen
-const dbFile = './database.json';
-let dynamicDb = {
-    apiDigitalOcean: config.apiDigitalOcean // Default ambil dari config.js
-};
+// ... Lanjutkan kode kamu di bawah sini seperti biasa ...
 
 // Cek apakah file database.json ada, kalau ada load, kalau tidak buat baru
 if (fs.existsSync(dbFile)) {
