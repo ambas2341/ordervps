@@ -1,3 +1,19 @@
+///===========ANTI-CRASH HANDLER (WAJIB ADA)=======\\\\\
+// 1. Menangkap error polling (koneksi putus nyambung)
+bot.on('polling_error', (error) => {
+    console.log('⚠️ Polling Error:', error.message);
+});
+
+// 2. Menangkap error "Bad Request" atau error coding lainnya agar bot GAK MATI
+process.on('uncaughtException', (err) => {
+    console.error('❌ Uncaught Exception:', err);
+    // Bot tetap jalan, hanya lapor error di console
+});
+
+process.on('unhandledRejection', (reason, promise) => {
+    console.error('❌ Unhandled Rejection:', reason);
+    // Bot tetap jalan
+});
 ///===========CONST & DEPENDENCIES=======\\\\\
 const TelegramBot = require('node-telegram-bot-api');
 const axios = require('axios');
